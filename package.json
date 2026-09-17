@@ -1,0 +1,52 @@
+{
+  "name": "create-cia",
+  "version": "0.0.0-development",
+  "description": "npm create cia — guided installer for css-is-awesome (cia). Detects your framework and package manager, installs cia, wires the two-import SCSS model, picks a theme, and optionally connects the MCP server for AI agents. Existing projects only — no scaffolding.",
+  "homepage": "https://github.com/Jerry2d3d/create-cia#readme",
+  "bugs": {
+    "url": "https://github.com/Jerry2d3d/create-cia/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jerry2d3d/create-cia.git"
+  },
+  "license": "MIT",
+  "author": "Jerry2d3d",
+  "type": "module",
+  "bin": {
+    "create-cia": "bin/create-cia.mjs"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test",
+    "start": "node bin/create-cia.mjs"
+  },
+  "dependencies": {
+    "@clack/prompts": "^1.8.1"
+  },
+  "keywords": [
+    "create-cia",
+    "css-is-awesome",
+    "design-system",
+    "scss",
+    "installer",
+    "wizard"
+  ],
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^13.0.0",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^11.0.0",
+    "@semantic-release/npm": "^13.1.5",
+    "@semantic-release/release-notes-generator": "^14.0.1",
+    "semantic-release": "^25.0.9"
+  }
+}
