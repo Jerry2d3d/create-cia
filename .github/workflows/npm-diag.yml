@@ -32,14 +32,13 @@ jobs:
             npm_*) echo "prefix: npm_ (classic or granular access token)";;
             *)     echo "prefix: other";;
           esac
-      - name: packages this token may access
+      - name: read-only token facts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          u="$(npm whoami 2>/dev/null || true)"
-          echo "--- npm access list packages $u ---"
-          npm access list packages "$u" 2>&1 || true
-          echo "--- dry-run publish of a throwaway name (no network write) ---"
-          mkdir -p /tmp/diag && cd /tmp/diag
-          printf '{"name":"create-cia","version":"0.0.0-diag","license":"MIT"}' > package.json
-          npm publish --dry-run 2>&1 | tail -5 || true
+          echo "--- npm profile get (2FA mode, no secrets) ---"
+          npm profile get --json 2>&1 | grep -E '"(name|tfa|two_factor|created)"' || true
+          echo "--- npm token list (type + scope of each token) ---"
+          npm token list 2>&1 | head -20 || true
+          echo "--- can it see the existing packages? ---"
+          npm view css-is-awesome-mcp version 2>&1 | tail -1
