@@ -1,0 +1,45 @@
+# One-off diagnostic — who is NPM_TOKEN, and what may it publish?
+# Manual trigger only. Prints the npm username and the token's package
+# access; never prints the token (Actions masks secrets anyway). Delete
+# this file once the first publish has succeeded.
+name: npm token diagnostic
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  diag:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+      - name: whoami
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          echo "npm $(npm --version)"
+          echo "user: $(npm whoami 2>&1 || true)"
+      - name: token type hints
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          t="${NODE_AUTH_TOKEN}"
+          echo "token length: ${#t}"
+          case "$t" in
+            npm_*) echo "prefix: npm_ (classic or granular access token)";;
+            *)     echo "prefix: other";;
+          esac
+      - name: packages this token may access
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          u="$(npm whoami 2>/dev/null || true)"
+          echo "--- npm access list packages $u ---"
+          npm access list packages "$u" 2>&1 || true
+          echo "--- dry-run publish of a throwaway name (no network write) ---"
+          mkdir -p /tmp/diag && cd /tmp/diag
+          printf '{"name":"create-cia","version":"0.0.0-diag","license":"MIT"}' > package.json
+          npm publish --dry-run 2>&1 | tail -5 || true
