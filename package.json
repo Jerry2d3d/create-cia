@@ -1,7 +1,7 @@
 {
   "name": "create-cia",
-  "version": "0.0.0-development",
-  "description": "npm create cia \u2014 guided installer for css-is-awesome (cia). Detects your framework and package manager, installs cia, wires the two-import SCSS model, picks a theme, and optionally connects the MCP server for AI agents. Existing projects only \u2014 no scaffolding.",
+  "version": "1.0.0",
+  "description": "npm create cia — guided installer for css-is-awesome (cia). Detects your framework and package manager, installs cia, wires the two-import SCSS model, picks a theme, and optionally connects the MCP server for AI agents. Existing projects only — no scaffolding.",
   "homepage": "https://github.com/Jerry2d3d/create-cia#readme",
   "bugs": {
     "url": "https://github.com/Jerry2d3d/create-cia/issues"
