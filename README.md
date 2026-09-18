@@ -12,7 +12,13 @@ Run it inside an existing project. It detects your framework and package
 manager, installs cia, writes the root SCSS entry with the two-import model
 already correct, wires your theme into the root layout, and (optionally)
 connects the MCP server so AI agents read cia's real API instead of
-guessing. Four questions, then a summary with your next steps.
+guessing. Three questions, then a summary with your next steps.
+
+The installer has **zero runtime dependencies** — the prompts are ~100 lines of
+our own `readline` code, answered with Enter, y/n or a number. A zero-JS design
+system deserves a zero-dependency installer: nothing to audit, nothing to break,
+and it behaves the same in a terminal, a pipe, and a CI log. Scripted answers
+work too: pipe one line per question and set `CREATE_CIA_INTERACTIVE=1`.
 
 **Existing projects only.** create-cia is not a scaffolder — it does not
 create a Next.js/Vite/Astro app for you. Make the project with your
