@@ -14,7 +14,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        # macOS is here because the epic's definition of done names all three
+        # platforms and this wizard touches the two things that differ most
+        # between them: path separators and spawning a package manager. A
+        # green Ubuntu run says nothing about either on a Mac.
+        os: [ubuntu-latest, windows-latest, macos-latest]
         node: [20, 24]
     steps:
       - name: Checkout
